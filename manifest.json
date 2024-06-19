@@ -1,0 +1,16 @@
+{
+	"manifest_version": 3,
+	"name": "Yeah!",
+	"version": "0.0.9",
+	"description": "a simple extension that replaces the twitter like button with a miiverse Yeah!, Art credit goes to https://www.twitch.tv/fiveeyesstreams",
+	"permissions": ["activeTab"],
+	"content_scripts":[
+	{
+		"matches": ["https://x.com/*", "https://twitter.com/*"],
+		"js": ["content.js"]
+	}
+	],
+	"icons": {
+		"48": "yeah.png"
+	}
+}
