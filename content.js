@@ -2,7 +2,6 @@ console.log("Script loaded");
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOMContentLoaded event fired");
-    // Adding a 5-second delay before executing replaceLikeButtons
     setTimeout(() => {
         console.log("5-second delay completed");
         try {
@@ -14,20 +13,18 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error('Failed to replace like buttons:', error);
         }
-    }, 5000); // Delay of 5 seconds
+    }, 5000);
 });
 
 function replaceLikeButtons() {
-    const likeButtons = document.querySelectorAll('svg.r-4qtqp9.r-yyyyoo.r-dnmrzs.r-bnwqim.r-lrvibr.r-m6rgpd.r-1xvli5t.r-1hdv0qi');
+    const likeButtons = document.querySelectorAll('div.css-175oi2r.r-xoduu5.r-1p0dtai.r-1d2f490.r-u8s1d.r-zchlnj.r-ipm5af.r-1niwhzg.r-sdzlij.r-xf4iuw.r-o7ynqc.r-6416eg.r-1ny4l3l');
     console.log(`Found ${likeButtons.length} like buttons`);
     likeButtons.forEach(button => {
-        // Create an image element
         const img = document.createElement('img');
-        img.src = chrome.runtime.getURL('yeah.png'); // Ensure the file name matches your PNG file
+        img.src = 'https://raw.githubusercontent.com/8D1/Yeah-Ext/master/yeah.png'; // External URL for the image
         img.style.width = '20px'; // Set the width of the new like button
         img.style.height = '20px'; // Set the height of the new like button
 
-        // Replace the SVG with the new PNG image
         if (button.parentNode) {
             button.parentNode.replaceChild(img, button);
             console.log("Replaced a like button");
@@ -35,15 +32,12 @@ function replaceLikeButtons() {
     });
 }
 
-// MutationObserver to observe changes in the DOM
 const observer = new MutationObserver((mutations) => {
-    console.log("MutationObserver callback triggered");
     mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
             if (node.nodeType === 1) {
-                const newLikeButtons = node.querySelectorAll('svg.r-4qtqp9.r-yyyyoo.r-dnmrzs.r-bnwqim.r-lrvibr.r-m6rgpd.r-1xvli5t.r-1hdv0qi');
+                const newLikeButtons = node.querySelectorAll('div.css-175oi2r.r-xoduu5.r-1p0dtai.r-1d2f490.r-u8s1d.r-zchlnj.r-ipm5af.r-1niwhzg.r-sdzlij.r-xf4iuw.r-o7ynqc.r-6416eg.r-1ny4l3l');
                 if (newLikeButtons.length > 0) {
-                    console.log("New like button(s) added");
                     replaceLikeButtons();
                 }
             }
@@ -51,5 +45,4 @@ const observer = new MutationObserver((mutations) => {
     });
 });
 
-// Ensure that replaceLikeButtons is called initially
-setTimeout(replaceLikeButtons, 5000); // Adding a 5-second delay before the initial call
+setTimeout(replaceLikeButtons, 2500);
